@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do List</title>
+    <!-- <link href="style.css" rel="stylesheet"></link> -->
+    <style>
+    
+    html, body{
+        height: 100%;
+        margin: 0;
+    }
+.top-bar a{
+    text-decoration: none;
+    color: white;
+}
+.top-bar{
+    background-color: #74A4B3;
+    height: 30px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+form{
+    margin-top: 20%;
+    text-align: center;
+}
+    </style>
+</head>
+<body style="background-image: url('backgrounduse.jpg')">
+    <div class="top-bar">
+<a href="#">To Do List</a>
+    </div>
+
+    <div class="form-box">
+    <form class = "enter" action="/action" method="POST">
+        <input type="text" placeholder="Your To-Do-List" name="todo">
+        <input type="submit"></input>
+         
+    </form>
+
+    <% for(var i = 0; i<a.length; i++){ %>
+            <li><%= a[i].name %> </li>
+
+       <% } %></div>
+
+</body>
+</html>
