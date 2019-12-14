@@ -3,9 +3,11 @@
   "version": "1.1.1",
   "description": "It is the updated version of to do list i was working on before",
   "main": "index.js",
+  "engines":{
+    "node" : "12.10.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "to",
