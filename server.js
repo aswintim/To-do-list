@@ -10,7 +10,7 @@ app.use(parser.urlencoded({extended: true}));
 
 app.use(express.static("public"));
 
-mongo.connect("mongodb://localhost/toDoList");
+mongo.connect("mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0");
 
 app.set("view-engine", "ejs");
 
