@@ -4,13 +4,24 @@ var app = express();
 var port = process.env.PORT || 8080;
 
 var parser = require('body-parser');
-var mongo = require('mongoose');
+var mongo = require('mongodb');
 
 app.use(parser.urlencoded({extended: true}));
 
 app.use(express.static("public"));
 
-mongo.connect("mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0");
+// mongo.connect("mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0");
+
+var mongoClient = mongo.MongoClient;
+
+var url = 'mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0';
+
+mongoClient.connect(url, function(err, db){
+    if(err){console.log("Connection Error", err)}
+    else{console.log("Connection Established!", url);
+db.close();
+}
+})
 
 app.set("view-engine", "ejs");
 
