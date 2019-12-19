@@ -4,32 +4,31 @@ var app = express();
 var port = process.env.PORT || 8080;
 
 var parser = require('body-parser');
-var mongo = require('mongodb');
+var mongoose = require('mongoose');
 
 app.use(parser.urlencoded({extended: true}));
 
 app.use(express.static("public"));
 
-// mongo.connect("mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0");
+var url = process.env.MONGODB_URI || "mongodb://localhost/toDoList";
 
-var mongoClient = mongo.MongoClient;
+// var mongoClient = mongo.MongoClient;
 
-var url = 'mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0';
+// var url = 'mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0';
 
-mongoClient.connect(url, function(err, db){
+mongoose.connect(url, function(err, db){
     if(err){console.log("Connection Error", err)}
-    else{console.log("Connection Established!", url);
-db.close();
+    else{console.log("Connection Established!", url)
 }
 })
 
 app.set("view-engine", "ejs");
 
-var schem = new mongo.Schema({
+var schem = new mongoose.Schema({
     name:String
 });
 
-var mod = mongo.model("name", schem);
+var mod = mongoose.model("name", schem);
 
 app.get('/', function(req, res){
     mod.find({}, function(err, val){
