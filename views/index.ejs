@@ -24,7 +24,7 @@
     margin: 0;
 }
 
-form{
+.enter{
     margin-top: 20%;
     text-align: center;
 }
@@ -36,15 +36,19 @@ form{
     </div>
 
     <div class="form-box">
-    <form class = "enter" action="/action" method="POST">
+    <form class = "enter" action="/submit" method="POST">
         <input type="text" placeholder="Your To-Do-List" name="todo">
         <input type="submit"></input>
          
     </form>
 
-    <% for(var i = 0; i<a.length; i++){ %>
-            <li><%= a[i].name %> </li>
-
+    <% for(var i = 0; i < a.length; i++){    %>
+            <%=i%><% var val = a[i]; %>
+                <form style="display:inline" action="/done" method="POST"><button type="submit" name="done" value="<%= val.name %>">Done</button></form>
+                <form style="display:inline" action="/failed" method="POST"><button value="<% val %>" name="failed" type="submit">Failed</button></form>
+                <form style="display:inline" action="/edit" method="POST"><button value="<% val %>" name="edit" type="submit">Edit</button></form> 
+                <!--&nbsp; &nbsp; &nbsp; &nbsp;--> <%= val.name %> </br>
+            
        <% } %></div>
 
 </body>
