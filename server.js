@@ -35,6 +35,10 @@ var mod = mongoose.model("name", schem);
 //dones model
 var done = mongoose.model("done", schem);
 
+//failed model
+var failed1 = mongoose.model("fail", schem);
+
+
 
 app.get('/', function(req, res){
     mod.find({}, function(err, val){
@@ -56,14 +60,31 @@ app.post('/submit', function(req, res){
     res.redirect('/');
 })
 
+app.post('/failed', (req, res)=>{
+    var request = req.body.failed;
+    var query = {name:request};
+    var fail = new failed1({
+        name: request
+    })
+    failed1.create(fail, (err, val)=>{
+        if(err){console.log(err)}
+        else{
+            mod.remove(query, (err, val1)=>{
+                if(err){console.log(err)}
+                    else{
+                        console.log("New item added in fails and item removed from todos"+val1.name);
+                    }   
+                    })
+        }
+    })
+    res.redirect('/');
+})
+
 app.post('/done', function(req, res){
     var request= req.body.done;
     var query = {name: request
     }
-    mod.remove(query, (err, obj)=>{
-        if(err){console.log(err)}
-        else{console.log("Document removed from main:"+obj)}
-    })
+
     var done1 = new done({
         name: request
     })
@@ -71,7 +92,10 @@ app.post('/done', function(req, res){
     done.create(done1, (err, val) => {
         if(err){console.log(err)}
         else{
-            console.log('New item added in dones: ' + val);
+            mod.remove(query, (err, obj)=>{
+                if(err){console.log(err)}
+                else{console.log("New Item added in dones and Document removed from main:"+obj.name)}
+            })
         }
     })
     console.log(req.body.done);
