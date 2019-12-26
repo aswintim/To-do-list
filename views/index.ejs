@@ -49,13 +49,25 @@
             <%=i%><% var val = a[i]; %>
                 <form style="display:inline" action="/done" method="POST"><button type="submit" name="done" value="<%= val.name %>">Done</button></form>
                 <form style="display:inline" action="/failed" method="POST"><button value="<%= val.name %>" name="failed" type="submit">Failed</button></form>
-                <div id="<%= 'editVisi'+i%>" style="display:inline"><button value="<%= val.name %>" name="edit" type="submit" 
-                    onclick="document.getElementById(&quot;<%='editVisi'+i%>&quot;).style.visibility = 'hidden';">
+                <div 
+                id="<%= 'editVisi'+i%>" style="display:inline"><button 
+                    value="<%= val.name %>" name="edit" type="submit" 
+                    onclick=
+                    "document.getElementById(&quot;<%='editVisi'+i%>&quot;).style.display = 'none'; 
+
+                    var btn = document.createElement('button');
+                    btn.innerHTML = 'Done';
+                    document.getElementById(&quot;<%='shown'+i%>&quot;).appendChild(btn);
+                    var inp = document.createElement('INPUT'); 
+                    inp.type= 'text';
+                    inp.value = '<%= val.name %>';
+                    document.getElementById(&quot;<%= 'shown'+i %>&quot;).appendChild(inp);
+                    ">
                     Edit</button></form> 
                     
-                    <%= val.name %></div> </br>
+                    <%= val.name %></div><div id="<%= 'shown'+i %>" style="display: inline"></div> </br>
             
-       <% } %></div>
+       <% } %></div></div>
 
 </body>
 </html>

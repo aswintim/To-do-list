@@ -69,7 +69,7 @@ app.post('/failed', (req, res)=>{
     failed1.create(fail, (err, val)=>{
         if(err){console.log(err)}
         else{
-            mod.find.removeOne(query, (err, val1)=>{
+            mod.find.remove(query, (err, val1)=>{
                 if(err){console.log(err)}
                     else{
                         console.log("New item added in fails and item removed from todos"+val1.name);
@@ -96,7 +96,7 @@ app.post('/done', function(req, res){
     done.create(done1, (err, val) => {
         if(err){console.log(err)}
         else{
-            mod.removeOne(query, (err, obj)=>{
+            mod.remove(query, (err, obj)=>{
                 if(err){console.log(err)}
                 else{console.log("New Item added in dones and Document removed from main:"+obj.name)}
             })
