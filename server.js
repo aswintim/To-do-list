@@ -84,9 +84,18 @@ app.post('/failed', (req, res)=>{
 })
 
 app.post('/edit', (req, res)=>{
-    var edit = req.body.edited;
-    // mod.find()
-    res.send(edit);
+    var old = req.body.oldOne;
+    var new1 = req.body.edited;
+
+    mod.update({name: old}, {$set:{name: new1}}, function(err, val){
+        if(err){console.log(err)}
+        else{
+            console.log("old one: " +old+ " new one: "+new1);
+        }}
+    );
+    
+    res.redirect('/');
+
 })
 
 app.post('/done', function(req, res){
