@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 var parser = require('body-parser');
 
@@ -47,13 +47,20 @@ app.post('/submit', function(req, res){
     var user = new mod({
         name: req.body.todo
     });
-    mod.create(user, function(err, val){
-        if(err){console.log(err)}
+    mod.find({'name': req.body.todo}, function(err, value){
+        if(value!=''){console.log('Already exists!')}
+        else if(err){console.log(err)}
         else{
-            console.log('New item: '+ val.name);
+            mod.create(user, function(err, val){
+                if(err){console.log(err)}
+                else{
+                    console.log('New item: '+ val.name);
+                }
+            })
         }
     })
     res.redirect('/');
+    
 })
 
 app.post('/failed', (req, res)=>{
@@ -76,9 +83,11 @@ app.post('/failed', (req, res)=>{
     res.redirect('/');
 })
 
-// app.post('/edit', (req, res)=>{
-    
-// })
+app.post('/edit', (req, res)=>{
+    var edit = req.body.edited;
+    // mod.find()
+    res.send(edit);
+})
 
 app.post('/done', function(req, res){
     var request= req.body.done;

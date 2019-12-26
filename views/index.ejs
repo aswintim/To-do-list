@@ -56,16 +56,23 @@
                     "document.getElementById(&quot;<%='editVisi'+i%>&quot;).style.display = 'none'; 
 
                     var btn = document.createElement('button');
+                    btn.type = 'submit';
                     btn.innerHTML = 'Done';
+                    
+                    
+                    
                     document.getElementById(&quot;<%='shown'+i%>&quot;).appendChild(btn);
-                    var inp = document.createElement('INPUT'); 
+
+                    var inp = document.createElement('input'); 
                     inp.type= 'text';
                     inp.value = '<%= val.name %>';
+                    inp.name = 'edited';
                     document.getElementById(&quot;<%= 'shown'+i %>&quot;).appendChild(inp);
                     ">
                     Edit</button></form> 
                     
-                    <%= val.name %></div><div id="<%= 'shown'+i %>" style="display: inline"></div> </br>
+                    <%= val.name %></div>
+                    <form id="<%= 'shown'+i %>" method="POST" action="/edit" style="display: inline"></form> </br>
             
        <% } %></div></div>
 
