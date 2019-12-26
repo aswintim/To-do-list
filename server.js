@@ -47,10 +47,11 @@ app.post('/submit', function(req, res){
     var user = new mod({
         name: req.body.todo
     });
+
     mod.find({'name': req.body.todo}, function(err, value){
         if(value!=''){console.log('Already exists!')}
         else if(err){console.log(err)}
-        else if(req =='' || req == ' '){console.log('empty')}
+        else if(req.body.todo =='' || req.body.todo == ' '){console.log('empty')}
         else{
             mod.create(user, function(err, val){
                 if(err){console.log(err)}
