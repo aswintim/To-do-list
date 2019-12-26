@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 var parser = require('body-parser');
 
@@ -17,11 +17,7 @@ var url = process.env.MONGODB_URI || "mongodb://localhost/toDoList";
 
 // var url = 'mongodb://<dbuser>:<dbpassword>@ds013222.mlab.com:13222/heroku_pxhmf7d0';
 
-mongoose.connect(url, function(err, db){
-    if(err){console.log("Connection Error", err)}
-    else{console.log("Connection Established!", url)
-}
-})
+mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true});
 
 app.set("view-engine", "ejs");
 
@@ -69,7 +65,7 @@ app.post('/failed', (req, res)=>{
     failed1.create(fail, (err, val)=>{
         if(err){console.log(err)}
         else{
-            mod.find.remove(query, (err, val1)=>{
+            mod.deleteOne(query, (err, val1)=>{
                 if(err){console.log(err)}
                     else{
                         console.log("New item added in fails and item removed from todos"+val1.name);
@@ -80,9 +76,9 @@ app.post('/failed', (req, res)=>{
     res.redirect('/');
 })
 
-app.post('/edit', (req, res)=>{
+// app.post('/edit', (req, res)=>{
     
-})
+// })
 
 app.post('/done', function(req, res){
     var request= req.body.done;
@@ -96,7 +92,7 @@ app.post('/done', function(req, res){
     done.create(done1, (err, val) => {
         if(err){console.log(err)}
         else{
-            mod.remove(query, (err, obj)=>{
+            mod.deleteOne(query, (err, obj)=>{
                 if(err){console.log(err)}
                 else{console.log("New Item added in dones and Document removed from main:"+obj.name)}
             })
