@@ -39,7 +39,7 @@ var failed1 = mongoose.model("fail", schem);
 app.get('/', function(req, res){
     mod.find({}, function(err, val){
         if(err){console.log(err)}
-        else{res.render("index.ejs", {a:val})}
+        else{res.render("index.ejs", {a:val})}   //couldn't understand a:val
     })
 });
 
@@ -121,6 +121,26 @@ app.post('/done', function(req, res){
     console.log(req.body.done);
     res.redirect('/');
 })
+
+app.get('/disDones', (req, res)=>{
+    done.find({},{name:1, _id:0}, (err, val)=>{
+        if(err){console.log(err)}
+        else{
+            res.send(val);
+        }
+    })
+}
+    )
+
+    app.get('/disFails', (req, res)=>{
+        failed1.find({},{name:1, _id:0},(err, val)=>{
+            if(err){console.log(err)}
+            else{
+                res.send(val);
+            }
+        })
+    }
+        )
 
 app.listen(port, function(){
     console.log("Listening at port 8080");
