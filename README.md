@@ -1,4 +1,5 @@
 # todoadvanced
-Used Heroku for deployment. Used mongodb as database.
+Simple To-do list created using node.js in the backend, mongodb as the database and ejs of dynamic feature.
+Used Heroku for deployment.
 
 live at: todobyaswin.herokuapp.com/
